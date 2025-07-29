@@ -3,11 +3,11 @@
 import { formatDate } from "@/utils/format-date";
 import { columns } from "./columns";
 import DataTable from "./data-table";
-import { useGetUserGames } from "@/queries/useGetGames";
 import React, { useEffect } from "react";
+import { useGetUserGames } from "@/queries/useGetUsersGames";
 
 const PlayerPage = () => {
-  const { data, error, isLoading } = useGetUserGames("OE");
+  const { data, error, isLoading } = useGetUserGames("BH");
 
   useEffect(() => {
     console.log("User games data:", data);
@@ -22,7 +22,7 @@ const PlayerPage = () => {
       formattedDate: formatDate(data.game_date),
     })) ?? [];
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-0">
       <DataTable columns={columns} data={gamesWithFormattedDates} />
     </div>
   );

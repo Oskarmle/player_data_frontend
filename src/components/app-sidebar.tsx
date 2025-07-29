@@ -32,7 +32,7 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar>
+    <Sidebar side="left" variant="inset" collapsible="none" className="h-screen">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>

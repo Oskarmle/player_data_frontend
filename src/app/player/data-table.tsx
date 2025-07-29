@@ -1,14 +1,27 @@
 "use client";
 
+// import * as React from "react";
 import {
   ColumnDef,
   flexRender,
+  SortingState,
+  getSortedRowModel,
   getCoreRowModel,
+  ColumnFiltersState,
+  VisibilityState,
+  getFilteredRowModel,
   useReactTable,
   getPaginationRowModel,
 } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 import {
   Table,
@@ -33,26 +46,77 @@ const DataTable = <TData, TValue>({
     pageIndex: 0,
     pageSize: 20,
   });
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    tournament: false,
+  });
 
   const table = useReactTable({
     data,
     columns,
-    state: { pagination },
     onPaginationChange: setPagination,
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+    state: { pagination, sorting, columnFilters, columnVisibility },
   });
 
   return (
-    <div>
+    <div className="container mx-auto p-4">
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter opponent club..."
+          value={
+            (table.getColumn("opponent_club")?.getFilterValue() as string) ?? ""
+          }
+          onChange={(event) =>
+            table.getColumn("opponent_club")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="ml-auto">
+              Columns
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       <div className="overflow-hidden rounded-md border">
-        <Table>
-          <TableHeader>
+        <Table className="table-auto w-full">
+          <TableHeader className="w-full table-fixed">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      style={{ width: `${header.column.getSize()}px` }}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(

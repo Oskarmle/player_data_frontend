@@ -12,7 +12,7 @@ export default function RootLayout({
   return (
     <html>
       {/* <html lang="en"> */}
-      <body className="bg-background">
+      <body className="bg-background h-screen">
         <QueryProvider>
           <ThemeProvider>
             <SidebarProvider>
