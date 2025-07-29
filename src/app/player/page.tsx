@@ -10,6 +10,7 @@ import { useGetSpecificPlayer } from "@/queries/useGetSpecificPlayer";
 const PlayerPage = () => {
   const [player_id, setPlayerId] = useState<string>("");
 
+  // Update player_id from localStorage when the component mounts or when the playerIdChanged event is fired
   useEffect(() => {
     const updatePlayer = () => {
       const id = localStorage.getItem("selectedPlayerId");
@@ -28,27 +29,37 @@ const PlayerPage = () => {
   // Fetch user based on the selected player ID
   const { data: player } = useGetSpecificPlayer(player_id);
 
-  useEffect(() => {
-    console.log("User games data:", gamesData);
-  }, [gamesData]);
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading games</div>;
 
+  // Ensure gamesData is an array or has a games property
+  const gamesArray = Array.isArray(gamesData)
+    ? gamesData
+    : gamesData?.games ?? [];
+
+  // Format game dates for display
   const gamesWithFormattedDates =
-    gamesData?.map((data: { game_date: string }) => ({
+    gamesArray.map((data: { game_date: string }) => ({
       ...data,
       formattedDate: formatDate(data.game_date),
     })) ?? [];
+
   return (
     <div className="container mx-auto p-0">
       <h2 className="px-4">
         Viser resultater for{" "}
         <span className="font-bold">
-          {player.firstName} {player.lastName}
+          {player
+            ? `${player.firstName} ${player.lastName}`
+            : "Ingen spiller valgt"}
         </span>
       </h2>
-      <DataTable columns={columns} data={gamesWithFormattedDates} />
+      <div className="px-4 mb-4">
+        <p className="text-sm text-muted-foreground">
+          Antal kampe: {gamesWithFormattedDates.length}
+        </p>
+        <DataTable columns={columns} data={gamesWithFormattedDates} />
+      </div>
     </div>
   );
 };
