@@ -1,12 +1,18 @@
 "use client";
-import { TrendingUp } from "lucide-react";
-import { Bar, BarChart, CartesianGrid, Cell, LabelList, XAxis, YAxis } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  LabelList,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { subMonths, parseISO, isAfter, format } from "date-fns";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -39,7 +45,7 @@ export function GainedLostChart() {
     return () => window.removeEventListener("playerIdChanged", updatePlayer);
   }, []);
 
-  const { data: rawGames = [], isLoading, error } = useGetUserGames(player_id);
+  const { data: rawGames = [], isLoading } = useGetUserGames(player_id);
 
   // Debug logs
   console.log("rawGames:", rawGames);

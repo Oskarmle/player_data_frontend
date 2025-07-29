@@ -51,7 +51,7 @@ export function Chart() {
 
   const { data: chartData = [], isLoading, error } = useGetUserGames(player_id);
 
-  const [timeRange, setTimeRange] = useState("90d");
+  const [timeRange, setTimeRange] = useState("365d");
 
   type Game = {
     game_date: string;
@@ -104,11 +104,6 @@ export function Chart() {
       </Card>
     );
   }
-
-  const sortedGames = [...rawGames].sort(
-    (a: Game, b: Game) =>
-      new Date(a.game_date).getTime() - new Date(b.game_date).getTime()
-  );
 
   const transformedData = rawGames.map((game: Game) => ({
     date: game.game_date,
