@@ -1,15 +1,21 @@
+"use client";
 import { Home, User, Columns3 } from "lucide-react";
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+
 import Link from "next/link";
+
+import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import SelectUser from "./select-user";
 
 // Menu items.
 const items = [
@@ -32,7 +38,12 @@ const items = [
 
 export function AppSidebar() {
   return (
-    <Sidebar side="left" variant="inset" collapsible="none" className="h-screen">
+    <Sidebar
+      side="left"
+      variant="inset"
+      collapsible="none"
+      className="h-screen"
+    >
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
@@ -51,6 +62,17 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <SelectUser />
+              </DropdownMenuTrigger>
+            </DropdownMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }

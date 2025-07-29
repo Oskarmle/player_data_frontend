@@ -3,9 +3,9 @@ import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
-// Fetch all users
-const fetchUsers = async () => {
-  const response = await axios.get(`${API_URL}/user`);
+// Fetch all players
+const fetchPlayers = async () => {
+  const response = await axios.get(`${API_URL}/player`);
   if (response.status !== 200) {
     throw new Error("Failed to fetch users");
   }
@@ -13,9 +13,9 @@ const fetchUsers = async () => {
   return response.data;
 };
 
-export const useGetUsers = () => {
+export const useGetPlayers = () => {
   return useQuery({
-    queryKey: ["users"],
-    queryFn: fetchUsers,
+    queryKey: ["players"],
+    queryFn: fetchPlayers,
   });
 };

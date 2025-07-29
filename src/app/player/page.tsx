@@ -3,11 +3,20 @@
 import { formatDate } from "@/utils/format-date";
 import { columns } from "./columns";
 import DataTable from "./data-table";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetUserGames } from "@/queries/useGetUsersGames";
 
 const PlayerPage = () => {
-  const { data, error, isLoading } = useGetUserGames("BH");
+  const [playerId, setPlayerId] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedPlayerId = sessionStorage.getItem("player_id") ?? "";
+      setPlayerId(storedPlayerId);
+    }
+  }, []);
+
+  const { data, error, isLoading } = useGetUserGames(playerId);
 
   useEffect(() => {
     console.log("User games data:", data);
@@ -17,7 +26,7 @@ const PlayerPage = () => {
   if (error) return <div>Error loading games</div>;
 
   const gamesWithFormattedDates =
-    data?.map((data: { game_date: string; }) => ({
+    data?.map((data: { game_date: string }) => ({
       ...data,
       formattedDate: formatDate(data.game_date),
     })) ?? [];
