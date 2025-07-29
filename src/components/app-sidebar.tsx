@@ -1,4 +1,4 @@
-import { Home, User } from "lucide-react";
+import { Home, User, Columns3 } from "lucide-react";
 
 import {
   Sidebar,
@@ -9,18 +9,24 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 // Menu items.
 const items = [
   {
     title: "Hjem",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
-    title: "Din profil",
-    url: "#",
+    title: "Din spiller profil",
+    url: "/player",
     icon: User,
+  },
+  {
+    title: "Alle kampe",
+    url: "/games",
+    icon: Columns3,
   },
 ];
 
@@ -34,10 +40,10 @@ export function AppSidebar() {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

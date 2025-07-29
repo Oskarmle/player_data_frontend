@@ -2,10 +2,7 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { ThemeProvider } from "@/providers/theme-provider";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-// Create a client
-const queryClient = new QueryClient();
+import QueryProvider from "@/providers/query-provider";
 
 export default function RootLayout({
   children,
@@ -13,10 +10,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html>
+      {/* <html lang="en"> */}
       <body className="bg-background">
-        <ThemeProvider>
-          <QueryClientProvider client={queryClient}>
+        <QueryProvider>
+          <ThemeProvider>
             <SidebarProvider>
               <AppSidebar />
               <main>
@@ -24,8 +22,8 @@ export default function RootLayout({
                 {children}
               </main>
             </SidebarProvider>
-          </QueryClientProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );
