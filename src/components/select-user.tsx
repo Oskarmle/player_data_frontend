@@ -9,10 +9,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { setPlayer } from "@/app/player/playerSlice";
 import { useGetPlayers } from "@/queries/useGetPlayers";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/app/store/store";
 
-type User = {
+type Player = {
   player_id: string;
   player_link: string;
   firstName: string;
@@ -21,31 +24,45 @@ type User = {
 };
 
 const SelectUser = () => {
-  const [player, setPlayer] = useState("");
+  const dispatch = useDispatch();
   const { data } = useGetPlayers();
+
+  // Get selected player_id from Redux store
+  const player = useSelector((state: RootState) => state.player.player_id);
 
   useEffect(() => {
     console.log("Players data:", data);
   }, [data]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("player_id", player);
+  const handleChange = (value: string) => {
+    const selectedPlayer = data?.find(
+      (player: Player) => player.player_id === value
+    );
+    if (selectedPlayer) {
+      dispatch(
+        setPlayer({
+          player_id: value,
+          firstName: selectedPlayer.firstName,
+          player_link: selectedPlayer.player_link,
+          lastName: selectedPlayer.lastName,
+          Team: selectedPlayer.Team,
+        })
+      );
     }
-  }, [player]);
+  };
 
   return (
     <div>
-      <Select value={player} onValueChange={(value) => setPlayer(value)}>
+      <Select value={player} onValueChange={handleChange}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Vælg en spiller" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Spillere</SelectLabel>
-            {data?.map((user: User) => (
-              <SelectItem key={user.player_id} value={user.player_id}>
-                {user.firstName} {user.lastName}
+            {data?.map((player: Player) => (
+              <SelectItem key={player.player_id} value={player.player_id}>
+                {player.firstName} {player.lastName}
               </SelectItem>
             ))}
           </SelectGroup>

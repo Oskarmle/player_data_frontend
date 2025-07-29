@@ -3,20 +3,15 @@
 import { formatDate } from "@/utils/format-date";
 import { columns } from "./columns";
 import DataTable from "./data-table";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useGetUserGames } from "@/queries/useGetUsersGames";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 const PlayerPage = () => {
-  const [playerId, setPlayerId] = useState("");
+  const player = useSelector((state: RootState) => state.player);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedPlayerId = sessionStorage.getItem("player_id") ?? "";
-      setPlayerId(storedPlayerId);
-    }
-  }, []);
-
-  const { data, error, isLoading } = useGetUserGames(playerId);
+  const { data, error, isLoading } = useGetUserGames(player.player_id);
 
   useEffect(() => {
     console.log("User games data:", data);
@@ -32,6 +27,12 @@ const PlayerPage = () => {
     })) ?? [];
   return (
     <div className="container mx-auto p-0">
+      <h2 className="px-4">
+        Viser resultater for{" "}
+        <span className="font-bold">
+          {player.firstName} {player.lastName}
+        </span>
+      </h2>
       <DataTable columns={columns} data={gamesWithFormattedDates} />
     </div>
   );
