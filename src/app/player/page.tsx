@@ -3,25 +3,40 @@
 import { formatDate } from "@/utils/format-date";
 import { columns } from "./columns";
 import DataTable from "./data-table";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetUserGames } from "@/queries/useGetUsersGames";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/store";
+import { useGetSpecificPlayer } from "@/queries/useGetSpecificPlayer";
 
 const PlayerPage = () => {
-  const player = useSelector((state: RootState) => state.player);
-
-  const { data, error, isLoading } = useGetUserGames(player.player_id);
+  const [player_id, setPlayerId] = useState<string>("");
 
   useEffect(() => {
-    console.log("User games data:", data);
-  }, [data]);
+    const updatePlayer = () => {
+      const id = localStorage.getItem("selectedPlayerId");
+      if (id) setPlayerId(id);
+    };
+
+    updatePlayer(); // load initially
+    window.addEventListener("playerIdChanged", updatePlayer); // listen for custom events
+
+    return () => window.removeEventListener("playerIdChanged", updatePlayer);
+  }, []);
+
+  // Fetch user games based on the selected player ID
+  const { data: gamesData, error, isLoading } = useGetUserGames(player_id);
+
+  // Fetch user based on the selected player ID
+  const { data: player } = useGetSpecificPlayer(player_id);
+
+  useEffect(() => {
+    console.log("User games data:", gamesData);
+  }, [gamesData]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading games</div>;
 
   const gamesWithFormattedDates =
-    data?.map((data: { game_date: string }) => ({
+    gamesData?.map((data: { game_date: string }) => ({
       ...data,
       formattedDate: formatDate(data.game_date),
     })) ?? [];

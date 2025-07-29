@@ -9,11 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { setPlayer } from "@/app/player/playerSlice";
 import { useGetPlayers } from "@/queries/useGetPlayers";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/app/store/store";
 
 type Player = {
   player_id: string;
@@ -24,36 +21,29 @@ type Player = {
 };
 
 const SelectUser = () => {
-  const dispatch = useDispatch();
   const { data } = useGetPlayers();
-
-  // Get selected player_id from Redux store
-  const player = useSelector((state: RootState) => state.player.player_id);
+  const [player_id, setPlayerId] = useState<string>("");
 
   useEffect(() => {
     console.log("Players data:", data);
   }, [data]);
 
-  const handleChange = (value: string) => {
-    const selectedPlayer = data?.find(
-      (player: Player) => player.player_id === value
-    );
-    if (selectedPlayer) {
-      dispatch(
-        setPlayer({
-          player_id: value,
-          firstName: selectedPlayer.firstName,
-          player_link: selectedPlayer.player_link,
-          lastName: selectedPlayer.lastName,
-          Team: selectedPlayer.Team,
-        })
-      );
+  useEffect(() => {
+    const savedId = localStorage.getItem("selectedPlayerId");
+    if (savedId) {
+      setPlayerId(savedId);
     }
+  }, []);
+
+  const handleChange = (player_id: string) => {
+    setPlayerId(player_id);
+    localStorage.setItem("selectedPlayerId", player_id);
+    window.dispatchEvent(new Event("playerIdChanged"));
   };
 
   return (
     <div>
-      <Select value={player} onValueChange={handleChange}>
+      <Select value={player_id} onValueChange={handleChange}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Vælg en spiller" />
         </SelectTrigger>
