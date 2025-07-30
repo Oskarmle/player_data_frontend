@@ -35,7 +35,7 @@ export default function ClientProviders({
         {playerId ? (
           <SidebarProvider>
             <AppSidebar />
-            <main className="flex flex-col flex-1 h-full">
+            <main className="flex flex-col flex-1 h-full pl-64">
               <SidebarTrigger />
               {children}
             </main>

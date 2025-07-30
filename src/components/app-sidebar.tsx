@@ -51,7 +51,7 @@ export function AppSidebar() {
       side="left"
       variant="inset"
       collapsible="none"
-      className="h-screen"
+      className="h-screen fixed top-0 left-0 z-50 w-64"
     >
       <SidebarContent>
         <SidebarGroup>

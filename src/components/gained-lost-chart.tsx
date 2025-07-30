@@ -118,10 +118,10 @@ export function GainedLostChart() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="h-80 w-full">
           <BarChart accessibilityLayer data={chartData}>
             <XAxis dataKey="month" />
-            <YAxis />
+            <YAxis dataKey="ratingChange" />
             <CartesianGrid vertical={false} />
             <ChartTooltip
               cursor={false}
@@ -135,7 +135,6 @@ export function GainedLostChart() {
                   ratingChange: number;
                 }) => (
                   <Cell
-                    className="rounded-t-lg"
                     key={item.month}
                     fill={
                       item.ratingChange > 0

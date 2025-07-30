@@ -36,8 +36,8 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex-1 px-4 gap-4 flex flex-col">
-      {/* <div className="flex gap-4">
+    <div className="flex-1 p-4 gap-4 flex flex-col">
+      <div className="flex gap-4">
         {dataCardArray.map((data, index) => (
           <DataCard
             key={index}
@@ -48,7 +48,7 @@ export default function Home() {
             description={data.description}
           />
         ))}
-      </div> */}
+      </div>
       <div className="flex flex-col gap-4">
         <GainedLostChart />
         <Chart />

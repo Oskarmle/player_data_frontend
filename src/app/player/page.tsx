@@ -45,16 +45,14 @@ const PlayerPage = () => {
     })) ?? [];
 
   return (
-    <div className="container mx-auto p-0">
-      <h2 className="px-4">
+    <div className="container mx-auto p-4">
+      <h2 className="text-2xl mb-1">
         Viser resultater for{" "}
         <span className="font-bold">
-          {player
-            ? `${player.firstName} ${player.lastName}`
-            : "Ingen spiller valgt"}
+          {player ? player.name : "Ingen spiller valgt"}
         </span>
       </h2>
-      <div className="px-4 mb-4">
+      <div className=" mb-4">
         <p className="text-sm text-muted-foreground">
           Antal kampe: {gamesWithFormattedDates.length}
         </p>
