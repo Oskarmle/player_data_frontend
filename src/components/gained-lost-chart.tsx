@@ -22,9 +22,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Key, useEffect, useMemo, useState } from "react";
+import { Key, useMemo } from "react";
 import { useGetUserGames } from "@/queries/useGetUsersGames";
-export const description = "A bar chart with negative values";
+import Loading from "./loading";
+import NoData from "./no-data";
+import { usePlayerId } from "@/hooks/usePlayerId";
 
 const chartConfig = {
   ratingChange: {
@@ -32,23 +34,10 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 export function GainedLostChart() {
-  const [player_id, setPlayerId] = useState<string>("");
-  useEffect(() => {
-    const updatePlayer = () => {
-      const id = localStorage.getItem("selectedPlayerId");
-      if (id) setPlayerId(id);
-    };
-
-    updatePlayer(); // load initially
-    window.addEventListener("playerIdChanged", updatePlayer);
-
-    return () => window.removeEventListener("playerIdChanged", updatePlayer);
-  }, []);
+  const player_id = usePlayerId();
 
   const { data: rawGames = [], isLoading } = useGetUserGames(player_id);
 
-  // Debug logs
-  console.log("rawGames:", rawGames);
   const chartData = useMemo(() => {
     if (!Array.isArray(rawGames)) return [];
 
@@ -87,25 +76,11 @@ export function GainedLostChart() {
 
   // Guard: loading and error states
   if (isLoading) {
-    return (
-      <Card className="pt-0 w-full ">
-        <CardHeader>
-          <CardTitle>Loading...</CardTitle>
-        </CardHeader>
-      </Card>
-    );
+    return <Loading />;
   }
   if (!chartData.length) {
     return (
-      <Card className="pt-0 w-full ">
-        <CardHeader>
-          <CardTitle>Ingen data tilgængelig</CardTitle>
-          <CardDescription>
-            Ingen rating ændringer fundet for denne spiller de sidste 12
-            måneder.
-          </CardDescription>
-        </CardHeader>
-      </Card>
+      <NoData message="Ingen data tilgængelig, vælg en ny spiller der har spillet kampe" />
     );
   }
 

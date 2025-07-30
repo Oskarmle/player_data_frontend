@@ -3,34 +3,21 @@
 import { formatDate } from "@/utils/format-date";
 import { columns } from "./columns";
 import DataTable from "./data-table";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useGetUserGames } from "@/queries/useGetUsersGames";
 import { useGetSpecificPlayer } from "@/queries/useGetSpecificPlayer";
+import { usePlayerId } from "@/hooks/usePlayerId";
+import Loading from "@/components/loading";
+import NoData from "@/components/no-data";
 
 const PlayerPage = () => {
-  const [player_id, setPlayerId] = useState<string>("");
-
-  // Update player_id from localStorage when the component mounts or when the playerIdChanged event is fired
-  useEffect(() => {
-    const updatePlayer = () => {
-      const id = localStorage.getItem("selectedPlayerId");
-      if (id) setPlayerId(id);
-    };
-
-    updatePlayer(); // load initially
-    window.addEventListener("playerIdChanged", updatePlayer); // listen for custom events
-
-    return () => window.removeEventListener("playerIdChanged", updatePlayer);
-  }, []);
-
-  // Fetch user games based on the selected player ID
+  const player_id = usePlayerId();
   const { data: gamesData, error, isLoading } = useGetUserGames(player_id);
-
-  // Fetch user based on the selected player ID
   const { data: player } = useGetSpecificPlayer(player_id);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading games</div>;
+  if (isLoading) return <Loading />;
+  if (error)
+    return <NoData message="Der opstod en fejl under hentning af data." />;
 
   // Ensure gamesData is an array or has a games property
   const gamesArray = Array.isArray(gamesData)

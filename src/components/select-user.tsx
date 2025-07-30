@@ -51,9 +51,7 @@ const SelectUser = () => {
             aria-expanded={open}
             className="w-full justify-between"
           >
-            {selectedPlayer
-              ? selectedPlayer.name
-              : "Vælg spiller..."}
+            {selectedPlayer ? selectedPlayer.name : "Vælg spiller..."}
             <ChevronsUpDown className="opacity-50" />
           </Button>
         </PopoverTrigger>
@@ -72,7 +70,7 @@ const SelectUser = () => {
                       setOpen(false);
                     }}
                   >
-                    {player.name}  
+                    {player.name}
                     <Check
                       className={cn(
                         "ml-auto",

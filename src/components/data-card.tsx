@@ -8,9 +8,9 @@ import {
 } from "./ui/card";
 
 type DataCardProps = {
-  content1: string;
+  content1?: string;
   content2?: string;
-  data1?: string;
+  data1?: number;
   data2?: string;
   description: string;
 };

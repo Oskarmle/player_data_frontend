@@ -1,7 +1,5 @@
-'use client'
-
+"use client";
 import React from "react";
-
 import {
   Card,
   CardDescription,
@@ -18,9 +16,7 @@ const PlayerList = ({ player }: { player: Player }) => {
   const handleClick = () => {
     localStorage.setItem("selectedPlayerId", player.player_id);
     window.dispatchEvent(new Event("playerIdChanged"));
-    console.log(`Selected player: ${player.player_id}`);
-
-    router.push('/');
+    router.push("/");
   };
 
   return (
@@ -32,9 +28,7 @@ const PlayerList = ({ player }: { player: Player }) => {
       onClick={handleClick}
     >
       <CardHeader>
-        <CardTitle>
-          {player.name}
-        </CardTitle>
+        <CardTitle>{player.name}</CardTitle>
         <CardDescription>Spiller for {player.player_club}</CardDescription>
       </CardHeader>
     </Card>

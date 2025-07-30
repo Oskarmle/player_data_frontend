@@ -1,6 +1,4 @@
 "use client";
-
-// import * as React from "react";
 import {
   ColumnDef,
   flexRender,
@@ -22,7 +20,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import {
   Table,
   TableBody,

@@ -11,7 +11,7 @@ const fetchPlayers = async () => {
   if (response.status !== 200) {
     throw new Error("Failed to fetch users");
   }
-  console.log("Fetched users:", response.data);
+  // console.log("Fetched users:", response.data);
   return response.data;
 };
 

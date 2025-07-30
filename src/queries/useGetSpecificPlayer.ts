@@ -11,7 +11,7 @@ const fetchPlayerById = async (player_id: string) => {
   if (response.status !== 200) {
     throw new Error("Failed to fetch user");
   }
-  console.log("Fetched user:", response.data);
+  // console.log("Fetched user:", response.data);
   return response.data;
 };
 

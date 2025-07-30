@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   Card,
@@ -25,6 +25,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useGetUserGames } from "@/queries/useGetUsersGames";
+import NoData from "./no-data";
+import Loading from "./loading";
+import { usePlayerId } from "@/hooks/usePlayerId";
 
 export const description = "An interactive area chart";
 
@@ -36,18 +39,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function Chart() {
-  const [player_id, setPlayerId] = useState<string>("");
-  useEffect(() => {
-    const updatePlayer = () => {
-      const id = localStorage.getItem("selectedPlayerId");
-      if (id) setPlayerId(id);
-    };
-
-    updatePlayer(); // load initially
-    window.addEventListener("playerIdChanged", updatePlayer);
-
-    return () => window.removeEventListener("playerIdChanged", updatePlayer);
-  }, []);
+  const player_id = usePlayerId();
 
   const { data: chartData = [], isLoading, error } = useGetUserGames(player_id);
 
@@ -59,27 +51,14 @@ export function Chart() {
     gained_lost_: number;
   };
 
-  // Guard: show message if no player selected
   if (!player_id) {
     return (
-      <Card className="pt-0 w-full ">
-        <CardHeader>
-          <CardTitle>Ingen spiller valgt</CardTitle>
-          <CardDescription>Vælg en spiller for at se data.</CardDescription>
-        </CardHeader>
-      </Card>
+      <NoData message="Ingen spiller valgt, vælg en spiller for at se data." />
     );
   }
 
-  // Guard: loading and error states
   if (isLoading) {
-    return (
-      <Card className="pt-0 w-full ">
-        <CardHeader>
-          <CardTitle>Loading...</CardTitle>
-        </CardHeader>
-      </Card>
-    );
+    return <Loading />;
   }
   if (error) {
     return (
@@ -95,14 +74,7 @@ export function Chart() {
   const rawGames = Array.isArray(chartData) ? chartData : [];
   if (!rawGames.length) {
     return (
-      <Card className="pt-0 w-full ">
-        <CardHeader>
-          <CardTitle>No data available</CardTitle>
-          <CardDescription>
-            Ingen spil fundet for denne spiller.
-          </CardDescription>
-        </CardHeader>
-      </Card>
+      <NoData message="Ingen data tilgængelig, vælg en ny spiller der har spillet kampe" />
     );
   }
 
