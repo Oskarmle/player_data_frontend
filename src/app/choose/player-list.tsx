@@ -33,9 +33,9 @@ const PlayerList = ({ player }: { player: Player }) => {
     >
       <CardHeader>
         <CardTitle>
-          {player.firstName} {player.lastName}
+          {player.name}
         </CardTitle>
-        <CardDescription>Spiller for {player.team}</CardDescription>
+        <CardDescription>Spiller for {player.player_club}</CardDescription>
       </CardHeader>
     </Card>
   );

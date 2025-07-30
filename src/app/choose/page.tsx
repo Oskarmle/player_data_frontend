@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 
@@ -16,6 +16,10 @@ import { Player } from "@/types/player-type";
 const ChoosePlayer = () => {
   const { data } = useGetPlayers();
 
+  const sortedPlayers = data?.sort((a: { name: string; }, b: { name: string; }) => {
+    return a.name.localeCompare(b.name);
+  });
+
   return (
     <div className="p-4 h-fit flex items-center justify-center">
       <Card className="w-full h-full">
@@ -28,7 +32,7 @@ const ChoosePlayer = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-wrap gap-4 justify-center sm:justify-start">
-          {data?.map((player: Player) => (
+          {sortedPlayers?.map((player: Player) => (
             <PlayerList key={player.player_id} player={player} />
           ))}
         </CardContent>

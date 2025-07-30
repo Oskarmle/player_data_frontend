@@ -52,7 +52,7 @@ const SelectUser = () => {
             className="w-full justify-between"
           >
             {selectedPlayer
-              ? `${selectedPlayer.firstName} ${selectedPlayer.lastName}`
+              ? selectedPlayer.name
               : "Vælg spiller..."}
             <ChevronsUpDown className="opacity-50" />
           </Button>
@@ -66,13 +66,13 @@ const SelectUser = () => {
                 {data?.map((player: Player) => (
                   <CommandItem
                     key={player.player_id}
-                    value={player.firstName + " " + player.lastName}
+                    value={player.name}
                     onSelect={() => {
                       handleChange(player.player_id);
                       setOpen(false);
                     }}
                   >
-                    {player.firstName} {player.lastName}
+                    {player.name}  
                     <Check
                       className={cn(
                         "ml-auto",

@@ -56,6 +56,7 @@ export function Chart() {
   type Game = {
     game_date: string;
     player_rating: number;
+    gained_lost_: number;
   };
 
   // Guard: show message if no player selected
@@ -130,7 +131,7 @@ export function Chart() {
     }
   );
   return (
-    <Card className="pt-0 w-full ">
+    <Card className="pt-0">
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1">
           <CardTitle>Rating point</CardTitle>
@@ -208,7 +209,7 @@ export function Chart() {
                 });
               }}
             />
-            <YAxis domain={[900, 'auto']} allowDataOverflow={true} />
+            <YAxis domain={[900, "auto"]} allowDataOverflow={true} />
             <ChartTooltip
               cursor={false}
               content={
