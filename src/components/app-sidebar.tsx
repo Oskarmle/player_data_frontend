@@ -16,6 +16,8 @@ import Link from "next/link";
 
 import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import SelectUser from "./select-user";
+import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
 
 // Menu items.
 const items = [
@@ -37,6 +39,13 @@ const items = [
 ];
 
 export function AppSidebar() {
+  const router = useRouter();
+  const handleResetPlayerId = () => {
+    localStorage.removeItem("selectedPlayerId");
+    window.dispatchEvent(new Event("playerIdChanged"));
+    router.push("/choose");
+  };
+
   return (
     <Sidebar
       side="left"
@@ -65,11 +74,23 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
+            <div className="px-2 py-2">
+              <p className="text-sm text-muted-foreground">Skift spiller</p>
+            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <SelectUser />
               </DropdownMenuTrigger>
             </DropdownMenu>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <Button
+              variant="destructive"
+              className="w-full"
+              onClick={handleResetPlayerId}
+            >
+              nulstil
+            </Button>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
