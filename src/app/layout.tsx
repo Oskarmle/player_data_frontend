@@ -1,5 +1,6 @@
 import "./globals.css";
 import ClientProviders from "@/providers/client-provider";
+import PlayerGate from "@/components/player-gate";
 
 export default function RootLayout({
   children,
@@ -8,11 +9,10 @@ export default function RootLayout({
 }>) {
   return (
     // <html>
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className="bg-background h-screen">
-        <ClientProviders>
-          {children}
-        </ClientProviders>
+        <PlayerGate>{children}</PlayerGate>
+        {/* <ClientProviders>{children}</ClientProviders> */}
       </body>
     </html>
   );

@@ -11,22 +11,11 @@ import {
 } from "@/components/ui/select";
 import { useGetPlayers } from "@/queries/useGetPlayers";
 import { useEffect, useState } from "react";
-
-type Player = {
-  player_id: string;
-  player_link: string;
-  firstName: string;
-  lastName: string;
-  Team: string;
-};
+import { Player } from "@/types/player-type"; // Adjust the import path as necessary
 
 const SelectUser = () => {
   const { data } = useGetPlayers();
   const [player_id, setPlayerId] = useState<string>("");
-
-  useEffect(() => {
-    console.log("Players data:", data);
-  }, [data]);
 
   useEffect(() => {
     const savedId = localStorage.getItem("selectedPlayerId");
