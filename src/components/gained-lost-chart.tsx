@@ -76,7 +76,7 @@ export function GainedLostChart() {
   // Guard: show message if no player selected
   if (!player_id) {
     return (
-      <Card className="pt-0 w-full ">
+      <Card className="pt-0 w-full">
         <CardHeader>
           <CardTitle>Ingen spiller valgt</CardTitle>
           <CardDescription>Vælg en spiller for at se data.</CardDescription>

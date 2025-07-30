@@ -19,12 +19,12 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex-1 p-4 gap-4 flex flex-col">
+    <div className="flex-1 px-4 gap-4 flex flex-col">
       <h2>Se interessante statistik her</h2>
-      <Chart />
       <div>
         <GainedLostChart />
       </div>
+      <Chart />
     </div>
   );
 }
