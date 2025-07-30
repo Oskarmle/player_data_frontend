@@ -3,9 +3,11 @@ import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
+const PUBLIC_URL = process.env.NEXT_PUBLIC_API_URL || API_URL;
+
 // Fetch a specific player by ID
 const fetchPlayerById = async (player_id: string) => {
-  const response = await axios.get(`${API_URL}/player/${player_id}`);
+  const response = await axios.get(`${PUBLIC_URL}/player/${player_id}`);
   if (response.status !== 200) {
     throw new Error("Failed to fetch user");
   }
