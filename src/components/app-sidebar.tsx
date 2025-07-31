@@ -37,7 +37,7 @@ const items = [
   // },
 ];
 
-export function AppSidebar() {
+export function AppSidebar({ isMobile = false }: { isMobile?: boolean }) {
   const router = useRouter();
   const handleResetPlayerId = () => {
     localStorage.removeItem("selectedPlayerId");
@@ -50,7 +50,11 @@ export function AppSidebar() {
       side="left"
       variant="inset"
       collapsible="none"
-      className="h-screen fixed top-0 left-0 z-50 w-64"
+      className={
+        isMobile
+          ? "w-full"
+          : "h-screen fixed top-0 left-0 z-50 w-64"
+      }
     >
       <SidebarContent>
         <SidebarGroup>
