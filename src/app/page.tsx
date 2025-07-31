@@ -18,16 +18,12 @@ export default function Home() {
   const { data: gameData } = useGetUserGames(player_id);
 
   useEffect(() => {
-    if (!gameData || gameData.length === 0) {
+    if (gameData?.length) {
+      setStartPoints(gameData[0]?.player_rating ?? 0);
+    } else {
       setStartPoints(0);
-      return;
-    }
-    if (gameData) {
-      const startGame = gameData[0];
-      setStartPoints(startGame.player_rating);
     }
   }, [gameData]);
-
   useEffect(() => {
     if (playerData) {
       setCurrentPoints(playerData.current_points);

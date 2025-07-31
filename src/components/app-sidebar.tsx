@@ -1,5 +1,5 @@
 "use client";
-import { Home, User, Columns3 } from "lucide-react";
+import { Home, User } from "lucide-react";
 
 import {
   Sidebar,
@@ -30,11 +30,11 @@ const items = [
     url: "/player",
     icon: User,
   },
-  {
-    title: "Sammenlign kampe",
-    url: "/games",
-    icon: Columns3,
-  },
+  // {
+  //   title: "Sammenlign kampe",
+  //   url: "/games",
+  //   icon: Columns3,
+  // },
 ];
 
 export function AppSidebar() {
@@ -88,7 +88,7 @@ export function AppSidebar() {
               className="w-full"
               onClick={handleResetPlayerId}
             >
-              nulstil
+              Nulstil spiller valg
             </Button>
           </SidebarMenuItem>
         </SidebarMenu>
