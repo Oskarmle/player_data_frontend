@@ -12,13 +12,16 @@ import {
 import { useGetPlayers } from "@/queries/useGetPlayers";
 import PlayerList from "./player-list";
 import { Player } from "@/types/player-type";
+import SelectUser from "@/components/select-user";
 
 const ChoosePlayer = () => {
   const { data } = useGetPlayers();
 
-  const sortedPlayers = data?.sort((a: { name: string; }, b: { name: string; }) => {
-    return a.name.localeCompare(b.name);
-  });
+  const sortedPlayers = data?.sort(
+    (a: { name: string }, b: { name: string }) => {
+      return a.name.localeCompare(b.name);
+    }
+  );
 
   return (
     <div className="p-4 h-fit flex items-center justify-center">

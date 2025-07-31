@@ -199,8 +199,8 @@ export function Chart() {
             <Area
               dataKey="rating"
               type="natural"
-              fill="rgba(30, 144, 255, 0.3)"
-              stroke="rgb(30, 144, 255)"
+              fill="var(--chart-6)"
+              stroke="var(--chart-2)"
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />

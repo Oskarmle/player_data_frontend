@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/sidebar";
 
 import Link from "next/link";
-
 import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import SelectUser from "./select-user";
 import { Button } from "./ui/button";
@@ -27,12 +26,12 @@ const items = [
     icon: Home,
   },
   {
-    title: "Din spiller profil",
+    title: "Dine kampe",
     url: "/player",
     icon: User,
   },
   {
-    title: "Alle kampe",
+    title: "Sammenlign kampe",
     url: "/games",
     icon: Columns3,
   },
