@@ -41,10 +41,10 @@ export default function ClientProviders({
             </div>
             {/* Mobile sidebar */}
             <div className="flex flex-col flex-1 h-full sm:pl-64 overflow-x-hidden">
-              <div className="sm:hidden fixed z-50 w-full top-0 left-0 p-2">
+              <div className="sm:hidden fixed z-50 w-full top-0 left-0 p-2 ">
                 <MobileNav />
               </div>
-              <main className="flex-1 h-full m-0 p-0 pt-15 sm:pt-0">
+              <main className="flex-1 h-full m-0 p-0 pt-13 sm:pt-0">
                 <SidebarTrigger />
                 {children}
               </main>

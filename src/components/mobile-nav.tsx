@@ -10,14 +10,11 @@ import {
 
 const MobileNav = () => {
   return (
-    <NavigationMenu className="min-w-full shadow-md bg-amber-50 rounded-sm">
+    <NavigationMenu className="min-w-full shadow-md bg-[var(--color-card)] border-1 border-[var(--color-border)] rounded-r-lg px-2">
       <NavigationMenuList className="w-full">
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link
-              href="/"
-              className="font-medium text-lg text-xl text-black hover:text-blue-600 font-black"
-            >
+            <Link href="/" className="font-medium text-xl hover:text-blue-600">
               Home
             </Link>
           </NavigationMenuLink>
@@ -26,7 +23,7 @@ const MobileNav = () => {
           <NavigationMenuLink asChild>
             <Link
               href="/player"
-              className="font-medium text-lg text-xl text-black hover:text-blue-600 font-black"
+              className="font-medium text-xl hover:text-blue-600"
             >
               Dine kampe
             </Link>
@@ -36,7 +33,7 @@ const MobileNav = () => {
           <NavigationMenuLink asChild>
             <Link
               href="/games"
-              className="font-medium text-lg text-xl text-black hover:text-blue-600 font-black"
+              className="font-medium text-xl text-black hover:text-blue-600"
             >
               Sammenlign kampe
             </Link>
