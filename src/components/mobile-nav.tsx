@@ -14,7 +14,10 @@ const MobileNav = () => {
       <NavigationMenuList className="w-full">
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
-            <Link href="/" className="font-medium text-xl hover:text-blue-600">
+            <Link
+              href="/"
+              className="font-medium text-xl hover:text-blue-600 underline underline-offset-4"
+            >
               Home
             </Link>
           </NavigationMenuLink>
@@ -23,22 +26,22 @@ const MobileNav = () => {
           <NavigationMenuLink asChild>
             <Link
               href="/player"
-              className="font-medium text-xl hover:text-blue-600"
+              className="font-medium text-xl hover:text-blue-600 underline underline-offset-4"
             >
               Dine kampe
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
-        {/* <NavigationMenuItem>
+        <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link
               href="/games"
-              className="font-medium text-xl text-black hover:text-blue-600"
+              className="font-medium text-xl hover:text-blue-600 underline underline-offset-4"
             >
-              Sammenlign kampe
+              Head-2-Head
             </Link>
           </NavigationMenuLink>
-        </NavigationMenuItem> */}
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );

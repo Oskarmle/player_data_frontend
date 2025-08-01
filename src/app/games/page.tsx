@@ -8,7 +8,6 @@ import React, { useEffect, useState } from "react";
 import HeadToHead from "./head-2-head";
 import { Popover } from "@/components/ui/popover";
 import { PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
-import { Card } from "@/components/ui/card";
 
 import {
   Command,

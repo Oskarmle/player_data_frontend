@@ -6,6 +6,7 @@ import QueryProvider from "@/providers/query-provider";
 import { AppSidebar } from "@/components/app-sidebar";
 import { useEffect, useState } from "react";
 import MobileNav from "@/components/mobile-nav";
+import MobileFooter from "@/components/mobile-footer";
 
 export default function ClientProviders({
   children,
@@ -41,10 +42,13 @@ export default function ClientProviders({
             </div>
             {/* Mobile sidebar */}
             <div className="flex flex-col flex-1 h-full sm:pl-64 overflow-x-hidden">
-              <div className="sm:hidden fixed z-50 w-full top-0 left-0 p-2 ">
+              <div className="sm:hidden fixed z-50 w-full top-0 left-0 p-2">
                 <MobileNav />
+                <div className="fixed bottom-0 left-0 w-full">
+                  <MobileFooter />
+                </div>
               </div>
-              <main className="flex-1 h-full m-0 p-0 pt-13 sm:pt-0">
+              <main className="flex-1 h-full m-0 pt-13 pb-10 sm:pt-0">
                 <SidebarTrigger />
                 {children}
               </main>

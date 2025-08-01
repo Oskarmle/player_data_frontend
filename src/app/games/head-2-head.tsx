@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import DataCard from "@/components/data-card";
 import { WonLostChart } from "@/components/won-lost-chart";
 import React from "react";
 
@@ -21,8 +15,12 @@ const HeadToHead = ({ won, lost, ratingChange }: HeadToHeadProps) => {
       <p className="text-sm text-muted-foreground">
         Se dine statistikker mod dine modstandere
       </p>
-      <div>
-        <WonLostChart won={won} lost={lost} data={[]} />
+      <div className="flex flex-col gap-4">
+        <WonLostChart won={won} lost={lost} />
+        <DataCard
+          data1={ratingChange}
+          description="Rating ændring mod modstander"
+        />
       </div>
     </div>
   );
