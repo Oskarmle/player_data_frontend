@@ -6,35 +6,18 @@ import { WonLostChart } from "@/components/won-lost-chart";
 import { usePlayerId } from "@/hooks/usePlayerId";
 import { useGetSpecificPlayer } from "@/queries/useGetSpecificPlayer";
 import { useGetUserGames } from "@/queries/useGetUsersGames";
-import { useEffect, useState } from "react";
+import { calculateWonLost } from "@/utils/calculate-won-lost-games";
 
 export default function Home() {
-  const [current_points, setCurrentPoints] = useState<number>(0);
-  const [startPoints, setStartPoints] = useState<number>(0);
-  const [rank, setRank] = useState<number>(0);
-
   const player_id = usePlayerId();
   const { data: playerData } = useGetSpecificPlayer(player_id);
-  const { data: gameData } = useGetUserGames(player_id);
+  const { data: gameData, isLoading, error } = useGetUserGames(player_id);
 
-  useEffect(() => {
-    if (gameData?.length) {
-      setStartPoints(gameData[0]?.player_rating ?? 0);
-    } else {
-      setStartPoints(0);
-    }
-  }, [gameData]);
-  useEffect(() => {
-    if (playerData) {
-      setCurrentPoints(playerData.current_points);
-    }
-  }, [playerData]);
+  const { won, lost } = calculateWonLost(gameData);
 
-  useEffect(() => {
-    if (playerData) {
-      setRank(playerData.rank);
-    }
-  }, [playerData]);
+  const startPoints = gameData?.[0]?.player_rating ?? 0;
+  const current_points = playerData?.current_points ?? 0;
+  const rank = playerData?.rank ?? 0;
 
   return (
     <div className="flex-1 flex flex-col items-center px-2 sm:px-4 py-4 overflow-x-hidden">
@@ -56,7 +39,13 @@ export default function Home() {
           </div>
         </div>
         <div className="w-full lg:flex-1">
-          <WonLostChart />
+          <WonLostChart
+            lost={lost}
+            won={won}
+            loading={isLoading}
+            error={!!error}
+            errorMessage={error?.message}
+          />
         </div>
       </div>
       <div className="w-full max-w-5xl flex flex-col gap-4 mt-4">

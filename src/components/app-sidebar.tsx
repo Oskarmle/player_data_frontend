@@ -1,5 +1,5 @@
 "use client";
-import { Home, User } from "lucide-react";
+import { Home, Swords, User } from "lucide-react";
 
 import {
   Sidebar,
@@ -30,11 +30,11 @@ const items = [
     url: "/player",
     icon: User,
   },
-  // {
-  //   title: "Sammenlign kampe",
-  //   url: "/games",
-  //   icon: Columns3,
-  // },
+  {
+    title: "Head-to-head",
+    url: "/games",
+    icon: Swords,
+  },
 ];
 
 export function AppSidebar({ isMobile = false }: { isMobile?: boolean }) {

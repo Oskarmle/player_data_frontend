@@ -24,7 +24,6 @@ const PlayerPage = () => {
     ? gamesData
     : gamesData?.games ?? [];
 
-  // Format game dates for display
   const gamesWithFormattedDates =
     gamesArray.map((data: { game_date: string }) => ({
       ...data,

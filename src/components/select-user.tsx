@@ -15,11 +15,9 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useGetPlayers } from "@/queries/useGetPlayers";
-import { useEffect, useState } from "react";
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-
-import { Player } from "@/types/player-type"; // Adjust the import path as necessary
+import { Player } from "@/types/player-type";
 
 const SelectUser = () => {
   const { data } = useGetPlayers();

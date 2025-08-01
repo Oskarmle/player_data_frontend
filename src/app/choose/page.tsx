@@ -12,7 +12,6 @@ import {
 import { useGetPlayers } from "@/queries/useGetPlayers";
 import PlayerList from "./player-list";
 import { Player } from "@/types/player-type";
-import SelectUser from "@/components/select-user";
 
 const ChoosePlayer = () => {
   const { data } = useGetPlayers();
