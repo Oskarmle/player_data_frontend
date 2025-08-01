@@ -65,7 +65,7 @@ export function WonLostChart() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-80 w-full">
+        <ChartContainer config={chartConfig} className="h-36 w-full">
           <BarChart data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis dataKey="name" />

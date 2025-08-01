@@ -40,13 +40,20 @@ export default function Home() {
     <div className="flex-1 flex flex-col items-center px-2 sm:px-4 py-4 overflow-x-hidden">
       <div className="w-full max-w-5xl flex flex-col lg:flex-row gap-4">
         <div className="flex flex-col gap-4 w-full lg:w-1/3">
-          <DataCard description="Placering på ratinglisten" data1={rank} />
-          <DataCard description="Rating start sæson" data1={startPoints} />
-          <DataCard description="Din nuværende rating" data1={current_points} />
-          <DataCard
-            description="Sæsonens rating ændring"
-            data1={current_points - startPoints}
-          />
+          <div className="flex gap-4 h-2/4">
+            <DataCard description="Placering på ratinglisten" data1={rank} />
+            <DataCard description="Rating start sæson" data1={startPoints} />
+          </div>
+          <div className="flex gap-4 h-2/4">
+            <DataCard
+              description="Din nuværende rating"
+              data1={current_points}
+            />
+            <DataCard
+              description="Sæsonens rating ændring"
+              data1={current_points - startPoints}
+            />
+          </div>
         </div>
         <div className="w-full lg:flex-1">
           <WonLostChart />

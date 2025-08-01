@@ -34,7 +34,7 @@ const ChoosePlayer = () => {
             bordtennisportalen.dk profil
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-wrap gap-4 justify-center sm:justify-start">
+        <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {sortedPlayers?.map((player: Player) => (
             <PlayerList key={player.player_id} player={player} />
           ))}

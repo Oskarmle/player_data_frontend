@@ -92,8 +92,8 @@ export function GainedLostChart() {
           Viser hvor meget rating der er vundet eller tabt hver måned
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="h-80 w-full">
+      <CardContent className="sm:pt-0 pl-0">
+        <ChartContainer config={chartConfig} className="sm:h-80  w-full">
           <BarChart accessibilityLayer data={chartData}>
             <XAxis dataKey="month" />
             <YAxis dataKey="ratingChange" />
@@ -103,7 +103,7 @@ export function GainedLostChart() {
               content={<ChartTooltipContent hideLabel hideIndicator />}
             />
             <Bar dataKey="ratingChange">
-              <LabelList position="top" dataKey="month" fillOpacity={1} />
+              <LabelList position="top" dataKey="ratingChange" fillOpacity={1} />
               {chartData.map(
                 (item: {
                   month: Key | null | undefined;

@@ -23,7 +23,7 @@ const PlayerList = ({ player }: { player: Player }) => {
     <Card
       className={cn(
         "cursor-pointer hover:bg-blue-900 transition-colors",
-        "border rounded-xl w-full sm:w-64 max-w-xs"
+        "border rounded-xl max-w-xs"
       )}
       onClick={handleClick}
     >
