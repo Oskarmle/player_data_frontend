@@ -53,7 +53,7 @@ const SelectUser = () => {
             <ChevronsUpDown />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[var(--radix-popover-trigger-width)] min-w-[var(--radix-popover-trigger-width)] p-0">
+        <PopoverContent className="w-[var(--radix-popover-trigger-width)] min-w-[var(--radix-popover-trigger-width)] max-h-[50vh] overflow-y-auto p-0">
           <Command>
             <CommandInput placeholder="Søg spiller..." className="h-9" />
             <CommandList>
