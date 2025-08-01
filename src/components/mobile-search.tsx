@@ -1,7 +1,7 @@
 import React from "react";
 import SelectUser from "./select-user";
 
-const MobileFooter = () => {
+const MobileSearch = () => {
   return (
     <div className="w-full p-2 sm:hidden">
       <SelectUser />
@@ -9,4 +9,4 @@ const MobileFooter = () => {
   );
 };
 
-export default MobileFooter;
+export default MobileSearch;

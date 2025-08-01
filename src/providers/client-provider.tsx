@@ -6,7 +6,7 @@ import QueryProvider from "@/providers/query-provider";
 import { AppSidebar } from "@/components/app-sidebar";
 import { useEffect, useState } from "react";
 import MobileNav from "@/components/mobile-nav";
-import MobileFooter from "@/components/mobile-footer";
+import MobileFooter from "@/components/mobile-search";
 
 export default function ClientProviders({
   children,

@@ -8,17 +8,17 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import MobileFooter from "./mobile-footer";
+import MobileSearch from "./mobile-search";
 
 const MobileNav = () => {
   return (
-    <NavigationMenu className="min-w-full flex flex-col shadow-md bg-[var(--color-card)] border-1 border-[var(--color-border)] rounded-lg px-2">
+    <NavigationMenu className="min-w-full flex flex-col shadow-md bg-[var(--color-card)] border border-[var(--color-border)] rounded-lg px-2 items-start">
       <NavigationMenuList className="w-full">
         <NavigationMenuItem>
           <NavigationMenuLink asChild>
             <Link
               href="/"
-              className="font-medium text-l hover:text-blue-600 underline underline-offset-2"
+              className="font-medium text-l hover:text-blue-600"
             >
               Home
             </Link>
@@ -28,7 +28,7 @@ const MobileNav = () => {
           <NavigationMenuLink asChild>
             <Link
               href="/player"
-              className="font-medium text-l hover:text-blue-600 underline underline-offset-2"
+              className="font-medium text-l hover:text-blue-600"
             >
               Dine kampe
             </Link>
@@ -38,7 +38,7 @@ const MobileNav = () => {
           <NavigationMenuLink asChild>
             <Link
               href="/games"
-              className="font-medium text-l hover:text-blue-600 underline underline-offset-2"
+              className="font-medium text-l hover:text-blue-600"
             >
               Head-2-Head
             </Link>
@@ -46,7 +46,7 @@ const MobileNav = () => {
         </NavigationMenuItem>
       </NavigationMenuList>
       <div className="border-t w-full">
-        <MobileFooter />
+        <MobileSearch />
       </div>
     </NavigationMenu>
   );
