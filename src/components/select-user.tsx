@@ -54,9 +54,9 @@ const SelectUser = () => {
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="z-[9999] w-[var(--radix-popover-trigger-width)] min-w-[var(--radix-popover-trigger-width)]
-             max-h-[50vh] overflow-y-auto overscroll-contain touch-pan-y p-0 bg-background"
+          className="z-[9999] w-[var(--radix-popover-trigger-width)] min-w-[var(--radix-popover-trigger-width)] max-h-[50vh] overflow-y-auto overscroll-y-auto touch-pan-y p-0 bg-background"
           sideOffset={4}
+          style={{ WebkitOverflowScrolling: 'touch' }}
         >
           <Command>
             <CommandInput placeholder="Søg spiller..." className="h-9" />
