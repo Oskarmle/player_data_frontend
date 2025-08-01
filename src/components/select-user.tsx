@@ -44,16 +44,20 @@ const SelectUser = () => {
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
-            variant="default"
+            variant="secondary"
             role="combobox"
             aria-expanded={open}
-            className="w-full justify-between text-[var(--foreground)]"
+            className="w-full justify-between text-[var(--chart-2)] cursor-pointer"
           >
             {selectedPlayer ? selectedPlayer.name : "Vælg spiller..."}
             <ChevronsUpDown />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[var(--radix-popover-trigger-width)] min-w-[var(--radix-popover-trigger-width)] max-h-[50vh] overflow-y-auto p-0">
+        <PopoverContent
+          className="z-[9999] w-[var(--radix-popover-trigger-width)] min-w-[var(--radix-popover-trigger-width)]
+             max-h-[50vh] overflow-y-auto overscroll-contain touch-pan-y p-0 bg-background"
+          sideOffset={4}
+        >
           <Command>
             <CommandInput placeholder="Søg spiller..." className="h-9" />
             <CommandList>

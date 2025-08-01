@@ -89,7 +89,7 @@ export function AppSidebar({ isMobile = false }: { isMobile?: boolean }) {
           <SidebarMenuItem>
             <Button
               variant="destructive"
-              className="w-full"
+              className="w-full cursor-pointer"
               onClick={handleResetPlayerId}
             >
               Nulstil spiller valg
