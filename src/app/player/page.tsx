@@ -7,6 +7,7 @@ import React from "react";
 import Loading from "@/components/loading";
 import NoData from "@/components/no-data";
 import { usePlayerGame } from "@/providers/player-game-provider";
+import { Game } from "@/types/game-type";
 
 const PlayerPage = () => {
   const { gameData, playerData, loading, error } = usePlayerGame();
@@ -15,12 +16,13 @@ const PlayerPage = () => {
   if (error)
     return <NoData message="Der opstod en fejl under hentning af data." />;
 
-  // Ensure gameData is an array or has a games property
-  if (!gameData || !Array.isArray(gameData) || gameData.length === 0) {
+  const safeGameData = Array.isArray(gameData) ? gameData : [];
+
+  if (!safeGameData || safeGameData.length === 0) {
     return <NoData message="Ingen kampe fundet for denne spiller." />;
   }
   const gamesWithFormattedDates =
-    gameData.map((data: { game_date: string }) => ({
+    safeGameData.map((data: Game) => ({
       ...data,
       formattedDate: formatDate(data.game_date),
     })) ?? [];
