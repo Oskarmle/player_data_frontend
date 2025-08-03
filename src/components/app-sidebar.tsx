@@ -1,5 +1,5 @@
 "use client";
-import { Home, Swords, User } from "lucide-react";
+import { Home, Swords, User, Star } from "lucide-react";
 
 import {
   Sidebar,
@@ -34,6 +34,11 @@ const items = [
     title: "Head-to-head",
     url: "/games",
     icon: Swords,
+  },
+  {
+    title: "Klub rating",
+    url: "/rating",
+    icon: Star,
   },
 ];
 
