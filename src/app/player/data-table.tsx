@@ -107,7 +107,7 @@ const DataTable = <TData, TValue>({
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
           <Button
-            variant="default"
+            variant="secondary"
             size="sm"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
@@ -115,7 +115,7 @@ const DataTable = <TData, TValue>({
             Forrige
           </Button>
           <Button
-            variant="default"
+            variant="secondary"
             size="sm"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
@@ -154,6 +154,13 @@ const DataTable = <TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={
+                    row.original.gained_lost > 0
+                      ? "bg-[rgba(59,185,28,0.3)] text-white"
+                      : row.original.gained_lost < 0
+                      ? "bg-[rgba(185,28,28,0.30)] text-white"
+                      : ""
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

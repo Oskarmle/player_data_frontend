@@ -6,7 +6,7 @@ import QueryProvider from "@/providers/query-provider";
 import { AppSidebar } from "@/components/app-sidebar";
 import { useEffect, useState } from "react";
 import MobileNav from "@/components/mobile-nav";
-import MobileFooter from "@/components/mobile-search";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import PageDataProvider from "./player-game-provider";
 
 export default function ClientProviders({
@@ -58,6 +58,10 @@ export default function ClientProviders({
           )}
         </PageDataProvider>
       </ThemeProvider>
+      {
+        // React Query Devtools for debugging
+      }
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryProvider>
   );
 }
