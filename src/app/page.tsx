@@ -3,16 +3,12 @@ import { Chart } from "@/components/chart";
 import DataCard from "@/components/data-card";
 import { GainedLostChart } from "@/components/gained-lost-chart";
 import { WonLostChart } from "@/components/won-lost-chart";
-import { usePlayerId } from "@/hooks/usePlayerId";
-import { useGetSpecificPlayer } from "@/queries/useGetSpecificPlayer";
-import { useGetUserGames } from "@/queries/useGetUsersGames";
 import { calculateWonLost } from "@/utils/calculate-won-lost-games";
 
-export default function Home() {
-  const player_id = usePlayerId();
-  const { data: playerData } = useGetSpecificPlayer(player_id);
-  const { data: gameData, isLoading, error } = useGetUserGames(player_id);
+import { usePlayerGame } from "@/providers/player-game-provider";
 
+export default function Home() {
+  const { player_id, gameData, playerData, loading, error } = usePlayerGame();
   const { won, lost } = calculateWonLost(gameData);
 
   const startPoints = gameData?.[0]?.player_rating ?? 0;
@@ -42,15 +38,25 @@ export default function Home() {
           <WonLostChart
             lost={lost}
             won={won}
-            loading={isLoading}
+            loading={loading}
             error={!!error}
             errorMessage={error?.message}
           />
         </div>
       </div>
       <div className="w-full max-w-5xl flex flex-col gap-4 mt-4">
-        <GainedLostChart />
-        <Chart />
+        <GainedLostChart
+          gameData={gameData}
+          error={!!error}
+          player_id={player_id}
+          loading={loading}
+        />
+        <Chart
+          player_id={player_id}
+          gameData={gameData}
+          loading={loading}
+          error={!!error}
+        />
       </div>
     </div>
   );

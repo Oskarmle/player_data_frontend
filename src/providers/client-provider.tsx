@@ -7,6 +7,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { useEffect, useState } from "react";
 import MobileNav from "@/components/mobile-nav";
 import MobileFooter from "@/components/mobile-search";
+import PageDataProvider from "./player-game-provider";
 
 export default function ClientProviders({
   children,
@@ -34,26 +35,28 @@ export default function ClientProviders({
   return (
     <QueryProvider>
       <ThemeProvider>
-        {playerId ? (
-          <SidebarProvider>
-            {/* Desktop sidebar */}
-            <div className="hidden sm:block">
-              <AppSidebar />
-            </div>
-            {/* Mobile sidebar */}
-            <div className="flex flex-col flex-1 h-full sm:pl-64 overflow-x-hidden">
-              <div className="sm:hidden fixed z-50 w-full top-0 left-0 p-2">
-                <MobileNav />
+        <PageDataProvider>
+          {playerId ? (
+            <SidebarProvider>
+              {/* Desktop sidebar */}
+              <div className="hidden sm:block">
+                <AppSidebar />
               </div>
-              <main className="flex-1 h-full m-0 pt-24 pb-10 sm:pt-0">
-                <SidebarTrigger />
-                {children}
-              </main>
-            </div>
-          </SidebarProvider>
-        ) : (
-          <main className="flex flex-col flex-1 h-full">{children}</main>
-        )}
+              {/* Mobile sidebar */}
+              <div className="flex flex-col flex-1 h-full sm:pl-64 overflow-x-hidden">
+                <div className="sm:hidden fixed z-50 w-full top-0 left-0 p-2">
+                  <MobileNav />
+                </div>
+                <main className="flex-1 h-full m-0 pt-24 pb-10 sm:pt-0">
+                  <SidebarTrigger />
+                  {children}
+                </main>
+              </div>
+            </SidebarProvider>
+          ) : (
+            <main className="flex flex-col flex-1 h-full">{children}</main>
+          )}
+        </PageDataProvider>
       </ThemeProvider>
     </QueryProvider>
   );

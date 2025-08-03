@@ -1,4 +1,3 @@
-"use client";
 import {
   Bar,
   BarChart,
@@ -8,7 +7,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { subMonths, parseISO, isAfter, format } from "date-fns";
 import {
   Card,
   CardContent,
@@ -22,46 +20,24 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Key, useMemo } from "react";
-import { useGetUserGames } from "@/queries/useGetUsersGames";
 import Loading from "./loading";
 import NoData from "./no-data";
-import { usePlayerId } from "@/hooks/usePlayerId";
+import type { gameData } from "@/types/game-data-type";
+
+import { calculateGainedLostRating } from "@/utils/calculate-gained-lost-rating";
 
 const chartConfig = {
   ratingChange: {
     label: "Rating ændring",
   },
 } satisfies ChartConfig;
-export function GainedLostChart() {
-  const player_id = usePlayerId();
+export function GainedLostChart({
+  player_id,
+  gameData,
+  loading,
+}: gameData) {
+  const chartData = calculateGainedLostRating(gameData);
 
-  const { data: rawGames = [], isLoading } = useGetUserGames(player_id);
-
-  const chartData = useMemo(() => {
-    if (!Array.isArray(rawGames)) return [];
-
-    const now = new Date();
-    const cutoff = subMonths(now, 12);
-    const monthlyTotals: Record<string, number> = {};
-
-    rawGames.forEach((game) => {
-      const gameDate = parseISO(game.game_date);
-      if (!isAfter(gameDate, cutoff)) return;
-
-      const key = format(gameDate, "yyyy-MM");
-      monthlyTotals[key] = (monthlyTotals[key] || 0) + (game.gained_lost || 0);
-    });
-
-    // Convert to sorted array
-    const result = Object.entries(monthlyTotals)
-      .sort(([a], [b]) => (a > b ? 1 : -1))
-      .map(([monthKey, total]) => ({
-        month: format(new Date(monthKey + "-01"), "MMM yyyy"),
-        ratingChange: total,
-      }));
-    return result;
-  }, [rawGames]);
   // Guard: show message if no player selected
   if (!player_id) {
     return (
@@ -75,7 +51,7 @@ export function GainedLostChart() {
   }
 
   // Guard: loading and error states
-  if (isLoading) {
+  if (loading) {
     return <Loading />;
   }
   if (!chartData.length) {
@@ -103,12 +79,13 @@ export function GainedLostChart() {
               content={<ChartTooltipContent hideLabel hideIndicator />}
             />
             <Bar dataKey="ratingChange">
-              <LabelList position="top" dataKey="ratingChange" fillOpacity={1} />
+              <LabelList
+                position="top"
+                dataKey="ratingChange"
+                fillOpacity={1}
+              />
               {chartData.map(
-                (item: {
-                  month: Key | null | undefined;
-                  ratingChange: number;
-                }) => (
+                (item: { month: string; ratingChange: number }) => (
                   <Cell
                     key={item.month}
                     fill={

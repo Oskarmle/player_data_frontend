@@ -4,28 +4,23 @@ import { formatDate } from "@/utils/format-date";
 import { columns } from "./columns";
 import DataTable from "./data-table";
 import React from "react";
-import { useGetUserGames } from "@/queries/useGetUsersGames";
-import { useGetSpecificPlayer } from "@/queries/useGetSpecificPlayer";
-import { usePlayerId } from "@/hooks/usePlayerId";
 import Loading from "@/components/loading";
 import NoData from "@/components/no-data";
+import { usePlayerGame } from "@/providers/player-game-provider";
 
 const PlayerPage = () => {
-  const player_id = usePlayerId();
-  const { data: gamesData, error, isLoading } = useGetUserGames(player_id);
-  const { data: player } = useGetSpecificPlayer(player_id);
+  const { gameData, playerData, loading, error } = usePlayerGame();
 
-  if (isLoading) return <Loading />;
+  if (loading) return <Loading />;
   if (error)
     return <NoData message="Der opstod en fejl under hentning af data." />;
 
-  // Ensure gamesData is an array or has a games property
-  const gamesArray = Array.isArray(gamesData)
-    ? gamesData
-    : gamesData?.games ?? [];
-
+  // Ensure gameData is an array or has a games property
+  if (!gameData || !Array.isArray(gameData) || gameData.length === 0) {
+    return <NoData message="Ingen kampe fundet for denne spiller." />;
+  }
   const gamesWithFormattedDates =
-    gamesArray.map((data: { game_date: string }) => ({
+    gameData.map((data: { game_date: string }) => ({
       ...data,
       formattedDate: formatDate(data.game_date),
     })) ?? [];
@@ -35,7 +30,7 @@ const PlayerPage = () => {
       <h2 className="text-2xl mb-1">
         Viser resultater for{" "}
         <span className="font-bold">
-          {player ? player.name : "Ingen spiller valgt"}
+          {playerData ? playerData.name : "Ingen spiller valgt"}
         </span>
       </h2>
       <div className=" mb-4">

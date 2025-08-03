@@ -13,14 +13,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export type Game = {
-  game_id: string;
-  formattedDate: string;
+  game_id: number;
+  game_date: string;
   opponent_name: string;
+  opponent_link: string;
   opponent_rating: number;
   opponent_club: string;
   player_rating: number;
   gained_lost: number;
   tournament: string;
+  player_id: string;
 };
 
 export const columns: ColumnDef<Game>[] = [
@@ -79,7 +81,7 @@ export const columns: ColumnDef<Game>[] = [
   {
     header: "Turnering/Holdkamp",
     accessorKey: "tournament",
-    size: 450
+    size: 450,
   },
   {
     size: 50,

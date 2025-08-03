@@ -1,7 +1,5 @@
 "use client";
 import DataCard from "@/components/data-card";
-import { usePlayerId } from "@/hooks/usePlayerId";
-import { useGetUserGames } from "@/queries/useGetUsersGames";
 import { calculateOpponentStats } from "@/utils/calculate-opponent-stats";
 import { calculateWonLost } from "@/utils/calculate-won-lost-games";
 import React, { useEffect, useState } from "react";
@@ -21,10 +19,12 @@ import { Button } from "@/components/ui/button";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { OpponentStats } from "@/utils/calculate-opponent-stats";
 import { cn } from "@/lib/utils";
+import { usePlayerGame } from "@/providers/player-game-provider";
+import Loading from "@/components/loading";
+import NoData from "@/components/no-data";
 
 const GamesPage = () => {
-  const player_id = usePlayerId();
-  const { data: gameData, error, isLoading } = useGetUserGames(player_id);
+  const { gameData, loading, error } = usePlayerGame();
   const { won, lost } = calculateWonLost(gameData);
   const opponentStats = calculateOpponentStats(gameData);
 
@@ -48,12 +48,14 @@ const GamesPage = () => {
       setLostGames(selectedOpponent.lost);
       setRatingChange(selectedOpponent.ratingChange);
     }
-
-    console.log("Selected opponent:", selectedOpponent);
   }, [selectedOpponent]);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching games</div>;
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <NoData message={error.message ?? "Der opstod en fejl"} />;
+  }
 
   return (
     <div className="flex flex-col gap-4 p-4">
@@ -88,7 +90,7 @@ const GamesPage = () => {
                 className="h-9 w-full"
               />
               <CommandList>
-                <CommandEmpty>ingen spiller fundet</CommandEmpty>
+                <CommandEmpty>Vælg en modstander herover</CommandEmpty>
                 <CommandGroup>
                   {opponentStats?.map((opponent: OpponentStats) => (
                     <CommandItem
