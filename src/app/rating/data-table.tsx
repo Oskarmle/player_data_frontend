@@ -29,13 +29,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
+import { usePlayerId } from "@/hooks/usePlayerId";
 
-interface DataTableProps<TData, TValue> {
+interface player_idRow {
+  player_id: string;
+}
+
+interface DataTableProps<TData extends player_idRow, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-const DataTable = <TData, TValue>({
+const DataTable = <TData extends player_idRow, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) => {
@@ -62,6 +67,9 @@ const DataTable = <TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
     state: { pagination, sorting, columnFilters, columnVisibility },
   });
+
+  // Get the current player's ID from the custom hook
+  const playerId = usePlayerId();
 
   return (
     <div className="container mx-auto">
@@ -149,6 +157,11 @@ const DataTable = <TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={
+                    row.original.player_id === playerId
+                      ? "bg-[rgba(255,255,255,0.1)] text-white"
+                      : ""
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

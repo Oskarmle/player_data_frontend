@@ -72,7 +72,7 @@ export const columns: ColumnDef<Game>[] = [
           className="h-8 !p-0"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Modstander rating
+          Rating ændring
           <ArrowUpDown className="h-4 p-0" />
         </Button>
       );

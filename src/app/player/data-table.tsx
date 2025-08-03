@@ -30,12 +30,16 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 
-interface DataTableProps<TData, TValue> {
+interface GainedLostRow {
+  gained_lost: number;
+}
+
+interface DataTableProps<TData extends GainedLostRow, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-const DataTable = <TData, TValue>({
+const DataTable = <TData extends GainedLostRow, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) => {
