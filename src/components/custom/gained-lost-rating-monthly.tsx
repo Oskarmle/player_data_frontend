@@ -55,14 +55,15 @@ export function GainedLostRatingMonthly({
           <BarChart accessibilityLayer data={chartData}>
             <XAxis dataKey="month" />
             <YAxis />
-            <CartesianGrid vertical={false} />
+            <CartesianGrid vertical={false} className="h-80" />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel hideIndicator />}
+              content={<ChartTooltipContent hideIndicator />}
+              labelFormatter={(label) => `Måned: ${label}`}
             />
             <Bar dataKey="ratingChange">
               <LabelList
-                position="top"
+                position="bottom"
                 dataKey="ratingChange"
                 fillOpacity={1}
               />
