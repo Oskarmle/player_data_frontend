@@ -11,6 +11,9 @@ export default function Home() {
   useEffect(() => {
     const storedUserId = localStorage.getItem("user_id");
     if (storedUserId) setUserId(storedUserId);
+
+    const storedPlayerId = localStorage.getItem("player_id");
+    if (storedPlayerId) setPlayerId(storedPlayerId);
   }, []);
 
   useEffect(() => {
@@ -24,10 +27,24 @@ export default function Home() {
     return () => window.removeEventListener("user_id", handleUserChange);
   }, []);
 
+    useEffect(() => {
+    if (playerId) {
+      localStorage.setItem("player_id", playerId);
+      console.log("Stored player_id:", playerId);
+    } else {
+      localStorage.removeItem("player_id");
+      console.log("Removed player_id");
+    }
+  }, [playerId]);
+
   return (
     <SidebarProvider>
       <AppSidebar />
-      <ShowSeason playerId={playerId} userId={userId} onChange={setPlayerId} />
+      <ShowSeason
+        playerId={playerId}
+        userId={userId}
+        onChange={(val) => setPlayerId(val)}
+      />
     </SidebarProvider>
   );
 }

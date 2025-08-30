@@ -1,7 +1,7 @@
 "use client";
 import { Player } from "@/app/types/player";
 import { useGetPlayers } from "@/hooks/useGetPlayers";
-import React, { useEffect } from "react";
+import React from "react";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 
 type ShowSeasonProps = {
@@ -13,9 +13,6 @@ type ShowSeasonProps = {
 const ShowSeason = ({ userId, playerId, onChange }: ShowSeasonProps) => {
   const { data } = useGetPlayers(userId || "");
 
-  useEffect(() => {
-    if (playerId) console.log("Selected player:", playerId);
-  }, [playerId]);
   return (
     <div className="w-full p-4">
       <ToggleGroup
@@ -23,7 +20,9 @@ const ShowSeason = ({ userId, playerId, onChange }: ShowSeasonProps) => {
         variant="outline"
         className="w-full"
         value={playerId ?? undefined}
-        onValueChange={onChange}
+        onValueChange={(val) => {
+          onChange(val);
+        }}
       >
         {data?.map((player: Player) => (
           <ToggleGroupItem key={player.player_id} value={player.player_id}>
