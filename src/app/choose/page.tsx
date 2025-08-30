@@ -1,3 +1,4 @@
+"use client";
 import { ChoosePlayerDialog } from "@/components/custom/choose-player-dialog";
 import {
   Card,
@@ -8,8 +9,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import React from "react";
+import { useUsers } from "../providers/user-provider";
 
 const ChooseUser = () => {
+  const { users } = useUsers();
+
   return (
     <div className="w-screen h-screen flex p-4">
       <Card className="w-full">
@@ -21,8 +25,10 @@ const ChooseUser = () => {
           </CardDescription>
           <CardAction></CardAction>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          <ChoosePlayerDialog />
+        <CardContent className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {users?.map((user) => (
+            <ChoosePlayerDialog key={user.user_id} name={user.name} user_id={user.user_id} />
+          ))}
         </CardContent>
       </Card>
     </div>

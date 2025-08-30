@@ -9,16 +9,35 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { SelectSeason } from "./select-season";
-export function ChoosePlayerDialog() {
+import { User } from "@/app/types/user";
+
+export function ChoosePlayerDialog({ name, user_id }: User) {
+  const handleButtonClick = () => {
+    console.log("Selected user ID:", user_id);
+    localStorage.setItem("user_id", user_id);
+  };
+
+  const handleDialogOpenChange = (open: boolean) => {
+    if (!open) {
+      console.log("Dialog closed, removing user_id from localStorage");
+      localStorage.removeItem("user_id");
+    }
+  };
+
   return (
-    <Dialog>
+    <Dialog onOpenChange={handleDialogOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline">Oskar Eriksen</Button>
+        <Button variant="outline" className="px-2" onClick={handleButtonClick}>
+          {name}
+        </Button>
       </DialogTrigger>
       <DialogContent className="">
         <DialogHeader>
-          <DialogTitle>Oskar Eriksen</DialogTitle>
-          <DialogDescription>Fredensborg BTK</DialogDescription>
+          <DialogTitle>{name}</DialogTitle>
+          <DialogDescription>
+            Vælg en sæson for at se dine statistikker, eller vælg hele din
+            bordtennis karriere
+          </DialogDescription>
         </DialogHeader>
         <SelectSeason />
         <DialogFooter className="sm:justify-start"></DialogFooter>
