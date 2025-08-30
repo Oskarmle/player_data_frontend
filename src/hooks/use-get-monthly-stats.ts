@@ -15,6 +15,8 @@ const fetchMonthlyStats = async (
         params: { userId },
       }
     );
+
+    console.log("Fetched MonthlyStats:", response.data);
     return response.data;
   } else if (userId) {
     const response = await axios.get(
@@ -23,16 +25,20 @@ const fetchMonthlyStats = async (
         params: { userId },
       }
     );
+    console.log("Fetched MonthlyStats:", response.data);
     return response.data;
   }
 
   throw new Error("No userId or playerId provided");
 };
 
-export const useGetGames = (userId: string | null, playerId: string | null) => {
-  return useQuery<MonthStats, Error>({
+export const useGetMonthlyStats = (
+  userId: string | null,
+  playerId: string | null
+) => {
+  return useQuery<MonthStats[], Error>({
     queryKey: ["games", userId, playerId],
     queryFn: () => fetchMonthlyStats(userId, playerId),
-    enabled: !!userId,
+    enabled: !!userId || !!playerId,
   });
 };

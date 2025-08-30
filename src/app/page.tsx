@@ -1,10 +1,12 @@
 "use client";
 import DataCard from "@/components/custom/data-card";
 import { AppSidebar } from "@/components/custom/desktop-sidebar";
+import { GainedLostRatingMonthly } from "@/components/custom/gained-lost-rating-monthly";
 import ShowSeason from "@/components/custom/show-season";
 import { WonLostChart } from "@/components/custom/won-lost-chart";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useGetGames } from "@/hooks/use-games";
+import { useGetMonthlyStats } from "@/hooks/use-get-monthly-stats";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -51,6 +53,8 @@ export default function Home() {
   }, [playerId]);
 
   const { data: GameData } = useGetGames(userId, playerId);
+  const { data: MonthlyStats } = useGetMonthlyStats(userId, playerId);
+  console.log("MonthlyStats:", MonthlyStats);
 
   return (
     <SidebarProvider>
@@ -61,7 +65,7 @@ export default function Home() {
           playerId={playerId}
           userId={userId}
         />
-        <div className="flex w-full flex-col">
+        <div className="flex w-full flex-col gap-4">
           <div className="flex flex-row justify-between gap-4">
             <div className="flex flex-col justify-between gap-4  basis-1/2">
               <div className="flex flex-row gap-4">
@@ -91,6 +95,7 @@ export default function Home() {
               />
             </div>
           </div>
+          <GainedLostRatingMonthly data={MonthlyStats ?? []} />
         </div>
       </div>
     </SidebarProvider>

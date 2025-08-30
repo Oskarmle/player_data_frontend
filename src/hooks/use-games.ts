@@ -25,7 +25,7 @@ const fetchGames = async (userId: string | null, playerId: string | null) => {
 
 export const useGetGames = (userId: string | null, playerId: string | null) => {
   return useQuery<GameStats, Error>({
-    queryKey: ["games", userId, playerId],
+    queryKey: ["stats", userId, playerId],
     queryFn: () => fetchGames(userId, playerId),
     enabled: !!userId,
   });
