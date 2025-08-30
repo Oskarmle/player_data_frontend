@@ -16,19 +16,33 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { ChevronsUpDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "@/app/types/user";
 
 export const SelectUser = () => {
   const { users, isLoading } = useUsers();
-  const [selectedUser, setSelectedUser] = useState<string | null>(null);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [selectedUserName, setSelectedUserName] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("user_id");
+    const storedUserName = localStorage.getItem("user_name");
+
+    if (storedUserId && storedUserName) {
+      setSelectedUserId(storedUserId);
+      setSelectedUserName(storedUserName);
+    }
+  }, []);
 
   const handleSelectUser = (user: User) => {
     console.log(user.user_id);
     localStorage.setItem("user_id", user.user_id);
+    localStorage.setItem("user_name", user.name);
     window.dispatchEvent(new Event("user_id"));
-    setSelectedUser(user.name);
+    window.dispatchEvent(new Event("user_name"));
+    setSelectedUserId(user.user_id);
+    setSelectedUserName(user.name);
   };
 
   return (
@@ -39,7 +53,7 @@ export const SelectUser = () => {
           role="combobox"
           className="w-full justify-between text-[var(--chart-2)] cursor-pointer"
         >
-          {isLoading ? "Loading..." : selectedUser ?? "Vælg spiller..."}
+          {isLoading ? "Loading..." : selectedUserName ?? "Vælg spiller..."}
           <ChevronsUpDown className="ml-2 h-4 w-4" />
         </Button>
       </PopoverTrigger>

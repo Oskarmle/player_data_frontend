@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { useGetUsers } from "../hooks/useGetUsers";
 import { User } from "../types/user";
+import { useGetUsers } from "@/hooks/useGetUsers";
 
 type UsersContextType = {
   users: User[] | undefined;
