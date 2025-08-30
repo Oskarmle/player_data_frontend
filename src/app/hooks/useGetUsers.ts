@@ -4,8 +4,7 @@ import axios from "axios";
 const API_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const fetchUsers = async () => {
-  const response = await axios.get(`${API_URL}/users`);
-  console.log("Fetched users:", response.data);
+  const response = await axios.get(`${API_URL}/user`);
   return response.data;
 };
 
