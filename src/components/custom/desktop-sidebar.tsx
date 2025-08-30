@@ -24,7 +24,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     },
   ];
   return (
-    <Sidebar collapsible="none" {...props} className="h-screen">
+    <Sidebar collapsible="none" {...props} className="h-screen py-2">
       <SidebarHeader>
         <SelectUser />
       </SidebarHeader>

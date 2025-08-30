@@ -2,6 +2,7 @@
 import DataCard from "@/components/custom/data-card";
 import { AppSidebar } from "@/components/custom/desktop-sidebar";
 import ShowSeason from "@/components/custom/show-season";
+import { WonLostChart } from "@/components/custom/won-lost-chart";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { useGetGames } from "@/hooks/use-games";
 import { useEffect, useState } from "react";
@@ -49,22 +50,47 @@ export default function Home() {
     }
   }, [playerId]);
 
-  const { data } = useGetGames(userId, playerId);
+  const { data: GameData } = useGetGames(userId, playerId);
 
   return (
     <SidebarProvider>
       <AppSidebar />
-      <div className="w-full">
+      <div className="flex w-full flex-col p-4 gap-4">
         <ShowSeason
+          onChange={setPlayerId}
           playerId={playerId}
           userId={userId}
-          onChange={setPlayerId}
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 px-4">
-          <DataCard data={data?.totalGames ?? 0} title="Total Games" />
-          <DataCard data={data?.won ?? 0} title="Total Won" />
-          <DataCard data={data?.lost ?? 0} title="Total Lost" />
-          <DataCard data={data?.winRate ?? 0} title="Win Rate" />
+        <div className="flex w-full flex-col">
+          <div className="flex flex-row justify-between gap-4">
+            <div className="flex flex-col justify-between gap-4  basis-1/2">
+              <div className="flex flex-row gap-4">
+                <div className="flex flex-col basis-1/2 gap-4">
+                  <DataCard
+                    data={GameData?.totalGames ?? 0}
+                    title="Antal kampe"
+                  />
+                  <DataCard data={GameData?.won ?? 0} title="Vundne kampe" />
+                </div>
+                <div className="flex flex-col basis-1/2 gap-4">
+                  <DataCard data={GameData?.lost ?? 0} title="Tabte kampe" />
+                  <DataCard
+                    data={GameData?.winRate ?? 0}
+                    title="Procent vundne"
+                  />
+                </div>
+              </div>
+              <div className="bg-muted/50 rounded-xl flex-1 p-4 flex items-center justify-center">
+                testbox
+              </div>
+            </div>
+            <div className="basis-1/2">
+              <WonLostChart
+                lost={GameData?.lost ?? 0}
+                won={GameData?.won ?? 0}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </SidebarProvider>

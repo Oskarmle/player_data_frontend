@@ -14,7 +14,7 @@ const ShowSeason = ({ userId, playerId, onChange }: ShowSeasonProps) => {
   const { data } = useGetPlayers(userId || "");
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full">
       <ToggleGroup
         type="single"
         variant="outline"
