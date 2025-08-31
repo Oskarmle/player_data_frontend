@@ -19,7 +19,7 @@ const Games = () => {
       ) || [];
 
   return (
-    <div className="w-full">
+    <div className="">
       <DataTable columns={columns} data={sortedData || []} />
     </div>
   );
