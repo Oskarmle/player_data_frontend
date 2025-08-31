@@ -12,7 +12,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className="dark">
+    <html //className="dark"
+    >
       <body className="bg-background h-screen">
         <QueryProvider>
           <UsersProvider>
