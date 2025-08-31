@@ -115,7 +115,7 @@ export function DataTable<TData, TValue>({
                   .getColumn("opponent_name")
                   ?.setFilterValue(event.target.value)
               }
-              className="max-w-xl min-w-md"
+              className="w-full sm:max-w-md lg:max-w-xl"
             />
           </div>
         </div>
