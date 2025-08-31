@@ -3,14 +3,10 @@ import { Player } from "@/app/types/player";
 import { useGetPlayers } from "@/hooks/useGetPlayers";
 import React from "react";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
+import { useUsers } from "@/app/providers/user-provider";
 
-type ShowSeasonProps = {
-  userId: string | null;
-  playerId: string | null;
-  onChange: (playerId: string | null) => void;
-};
-
-const ShowSeason = ({ userId, playerId, onChange }: ShowSeasonProps) => {
+const ShowSeason = () => {
+  const { userId, playerId, setPlayerId } = useUsers();
   const { data } = useGetPlayers(userId || "");
 
   return (
@@ -21,7 +17,7 @@ const ShowSeason = ({ userId, playerId, onChange }: ShowSeasonProps) => {
         className="w-full"
         value={playerId ?? undefined}
         onValueChange={(val) => {
-          onChange(val);
+          setPlayerId(val); // ⬅️ directly update via context
         }}
       >
         {data?.map((player: Player) => (

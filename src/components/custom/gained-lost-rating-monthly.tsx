@@ -35,13 +35,6 @@ type GainedLostRatingMonthlyProps = {
 export function GainedLostRatingMonthly({
   data,
 }: GainedLostRatingMonthlyProps) {
-  const chartData = Array.isArray(data)
-    ? data.map((item) => ({
-        month: item.month,
-        ratingChange: item.totalGainedLost,
-      }))
-    : [];
-
   return (
     <Card>
       <CardHeader>
@@ -52,26 +45,28 @@ export function GainedLostRatingMonthly({
       </CardHeader>
       <CardContent className="sm:pt-0 pl-0">
         <ChartContainer config={chartConfig} className="sm:h-80  w-full">
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart accessibilityLayer data={data}>
             <XAxis dataKey="month" />
             <YAxis />
             <CartesianGrid vertical={false} className="h-80" />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideIndicator />}
-              labelFormatter={(label) => `Måned: ${label}`}
+              labelFormatter={(label) => `${label}`}
             />
-            <Bar dataKey="ratingChange">
+            <Bar dataKey="totalGainedLost">
               <LabelList
                 position="bottom"
-                dataKey="ratingChange"
+                dataKey="totalGainedLost"
                 fillOpacity={1}
               />
-              {chartData.map((item) => (
+              {data.map((item) => (
                 <Cell
                   key={item.month}
                   fill={
-                    item.ratingChange > 0 ? "var(--chart-2)" : "var(--chart-3)"
+                    item.totalGainedLost > 0
+                      ? "var(--chart-2)"
+                      : "var(--chart-3)"
                   }
                 />
               ))}

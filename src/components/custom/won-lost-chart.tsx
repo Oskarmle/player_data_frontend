@@ -4,7 +4,6 @@ import { Bar, BarChart, CartesianGrid, Cell, LabelList, XAxis } from "recharts";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -36,8 +35,7 @@ export const WonLostChart = ({ won, lost }: WonLostProps) => {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>Bar Chart - Label</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Vundne / Tabte kampe</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="w-full">

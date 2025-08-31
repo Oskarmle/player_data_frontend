@@ -12,7 +12,7 @@ const fetchMonthlyStats = async (
     const response = await axios.get(
       `${API_URL}/game/player/monthly-stats/${playerId}`,
       {
-        params: { userId },
+        params: { playerId },
       }
     );
 

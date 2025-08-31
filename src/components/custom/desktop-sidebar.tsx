@@ -13,7 +13,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Home } from "lucide-react";
+import { Gamepad2, Home } from "lucide-react";
 import SelectUser from "./select-user";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const items = [
@@ -21,6 +21,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       title: "Hjem",
       url: "/",
       icon: Home,
+    },
+    {
+      title: "kamp oversigt",
+      url: "/games",
+      icon: Gamepad2,
     },
   ];
   return (
