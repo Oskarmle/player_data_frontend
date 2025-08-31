@@ -10,9 +10,17 @@ const Games = () => {
   const { data } = useGetAllGames(userId, playerId);
   console.log("games data", data);
 
+  const sortedData =
+    data
+      ?.slice()
+      .sort(
+        (a, b) =>
+          new Date(b.game_date).getTime() - new Date(a.game_date).getTime()
+      ) || [];
+
   return (
     <div className="w-full">
-      <DataTable columns={columns} data={data || []} />
+      <DataTable columns={columns} data={sortedData || []} />
     </div>
   );
 };
